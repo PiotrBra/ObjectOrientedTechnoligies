@@ -8,7 +8,7 @@ import pl.edu.agh.logger.Logger;
 import pl.edu.agh.school.SchoolClass;
 import pl.edu.agh.school.Teacher;
 
-public final class SerializablePersistenceManager {
+public final class SerializablePersistenceManager implements PersistenceManager {
 
     private static final Logger log = Logger.getInstance();
 
@@ -21,6 +21,15 @@ public final class SerializablePersistenceManager {
         classStorageFileName = "classes.dat";
     }
 
+    public void setTeachersStorageFileName(String teachersStorageFileName) {
+        this.teachersStorageFileName = teachersStorageFileName;
+    }
+
+    public void setClassStorageFileName(String classStorageFileName) {
+        this.classStorageFileName = classStorageFileName;
+    }
+
+    @Override
     public void saveTeachers(List<Teacher> teachers) {
         if (teachers == null) {
             throw new IllegalArgumentException();
@@ -33,7 +42,7 @@ public final class SerializablePersistenceManager {
             log.log("There was an error while saving the teachers data", e);
         }
     }
-
+    @Override
     @SuppressWarnings("unchecked")
     public List<Teacher> loadTeachers() {
         ArrayList<Teacher> res = null;
@@ -50,6 +59,7 @@ public final class SerializablePersistenceManager {
         return res;
     }
 
+    @Override
     public void saveClasses(List<SchoolClass> classes) {
         if (classes == null) {
             throw new IllegalArgumentException();
@@ -64,6 +74,7 @@ public final class SerializablePersistenceManager {
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public List<SchoolClass> loadClasses() {
         ArrayList<SchoolClass> res = null;
