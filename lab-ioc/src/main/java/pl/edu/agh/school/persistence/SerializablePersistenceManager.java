@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import pl.edu.agh.logger.Logger;
 import pl.edu.agh.school.SchoolClass;
 import pl.edu.agh.school.Teacher;
@@ -16,16 +18,18 @@ public final class SerializablePersistenceManager implements PersistenceManager 
 
     private String classStorageFileName;
 
-    public SerializablePersistenceManager() {
+    public SerializablePersistenceManager(Logger logger) {
         teachersStorageFileName = "teachers.dat";
         classStorageFileName = "classes.dat";
     }
 
-    public void setTeachersStorageFileName(String teachersStorageFileName) {
+    @Inject
+    public void setTeachersStorageFileName(@Named("teachersStorageFileName") String teachersStorageFileName) {
         this.teachersStorageFileName = teachersStorageFileName;
     }
 
-    public void setClassStorageFileName(String classStorageFileName) {
+    @Inject
+    public void setClassStorageFileName(@Named("classStorageFileName") String classStorageFileName) {
         this.classStorageFileName = classStorageFileName;
     }
 
